@@ -1,6 +1,3 @@
-import org.w3c.dom.ls.LSOutput;
-
-import javax.swing.plaf.synth.SynthTextAreaUI;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
@@ -10,12 +7,12 @@ public class MathForKids {
         Random random = new Random();
         int num2, num1, sum;
 
-        // Generating 2 random numbers
+        // Set initial variables
+        final int maxAllowedTimeInSeconds = 12;
+        final int expectedCalculatedExercises = 6;
         boolean isAddition;
-        int maxAllowedTimeInSeconds = 12;
-        int successCalculatedExercises = 0;
-        int expectedCalculatedExercises = 6;
-        int inputs = 0;
+        int successInputs = 0;
+        int totalInputs = 0;
 
         do try {
             /*
@@ -27,7 +24,7 @@ public class MathForKids {
              * number1 from 101
              * @sum sum is calculated also on addition condition. If is true, the sum is
              * num1 + number, otherwise (we mean minus, then num1 - num2)
-             * @inputs after every input we must add input to "inputs" variable
+             * @totalInputs after every input we must add input to "totalInputs" variable
              */
             isAddition = random.nextBoolean();
             num1 = random.nextInt(101);
@@ -35,13 +32,13 @@ public class MathForKids {
             sum = isAddition ? (num1 + num2) : (num1 - num2);
             System.out.printf("%d %s %d\n", num1, isAddition ? "+" : "-", num2);
             Scanner scanner = new Scanner(System.in);
-            inputs++;
+            totalInputs++;
             long start = System.nanoTime();
             int result = scanner.nextInt();
             long duration = TimeUnit.SECONDS.convert(System.nanoTime() - start, TimeUnit.NANOSECONDS);
             if (result == sum && duration <= maxAllowedTimeInSeconds) {
                 System.out.printf("This is OK. The real sum is %d\n", sum);
-                successCalculatedExercises++;
+                successInputs++;
             } else if (result != sum && duration <= maxAllowedTimeInSeconds) {
                 // Student's answer was right and in max allowed time
                 System.out.printf("You're fast. But you have incorrect result. Correct result is %d\n", sum);
@@ -54,13 +51,13 @@ public class MathForKids {
             }
         } catch (Exception e) {
             System.out.println("This is not number");
-        } while (successCalculatedExercises < expectedCalculatedExercises);
+        } while (successInputs < expectedCalculatedExercises);
 
         System.out.printf(
                 "Congratulations. You did successful %d math exercises from %d total. Your success ratio is: %.2f%%",
-                successCalculatedExercises,
-                inputs,
-                ((double)successCalculatedExercises / inputs) * 100);
+                successInputs,
+                totalInputs,
+                ((double) successInputs / totalInputs) * 100);
     }
 
 
