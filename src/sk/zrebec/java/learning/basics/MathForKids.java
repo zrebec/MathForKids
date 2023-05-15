@@ -39,11 +39,11 @@ public class MathForKids {
             int result = scanner.nextInt();
             long duration = TimeUnit.SECONDS.convert(System.nanoTime() - start, TimeUnit.NANOSECONDS);
             if (result == expectedAnswer && duration <= maxAllowedTimeInSeconds) {
-                System.out.printf("This is OK. The real expectedAnswer is %d\n", expectedAnswer);
                 successfulExercisesCount++;
+                System.out.printf("Great! It's real %d. You have %d successfully exercises.\n", expectedAnswer, successfulExercisesCount);
             } else if (result != expectedAnswer && duration <= maxAllowedTimeInSeconds) {
                 // Student's answer was right and in max allowed time
-                System.out.printf("You're fast. But you have incorrect result. Correct result is %d\n", expectedAnswer);
+                System.out.printf("Fast but incorrect. Expected result was %d\n", expectedAnswer);
             } else if (result == expectedAnswer) {
                 // Student's answer was right but too slow
                 System.out.printf("You're on good way. Correct result but your time was %ds\n", duration);
@@ -59,10 +59,12 @@ public class MathForKids {
 
         System.out.printf(
                 """
+                
                 Congratulations.
                 You did successful %d math exercises under %d seconds from %d total.
                 Your total time was %d seconds and
                 Your success ratio was %.2f%%.
+                
                 """,
                 successfulExercisesCount,
                 maxAllowedTimeInSeconds,
