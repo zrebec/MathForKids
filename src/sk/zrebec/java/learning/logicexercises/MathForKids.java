@@ -1,4 +1,4 @@
-package sk.zrebec.java.learning.basics;
+package sk.zrebec.java.learning.logicexercises;
 
 import java.util.Random;
 import java.util.Scanner;
