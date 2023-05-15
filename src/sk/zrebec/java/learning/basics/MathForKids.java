@@ -35,12 +35,12 @@ public class MathForKids {
             expectedAnswer = isAddition ? (operand1 + operand2) : (operand1 - operand2);
             System.out.printf("%d %s %d\n", operand1, isAddition ? "+" : "-", operand2);
             Scanner scanner = new Scanner(System.in);
-            totalAttemptedExercisesCount++;
             long start = System.nanoTime();
             int result = scanner.nextInt();
             long duration = TimeUnit.SECONDS.convert(System.nanoTime() - start, TimeUnit.NANOSECONDS);
             if (result == expectedAnswer && duration <= maxAllowedTimeInSeconds) {
                 System.out.printf("This is OK. The real expectedAnswer is %d\n", expectedAnswer);
+                successfulExercisesCount++;
             } else if (result != expectedAnswer && duration <= maxAllowedTimeInSeconds) {
                 // Student's answer was right and in max allowed time
                 System.out.printf("You're fast. But you have incorrect result. Correct result is %d\n", expectedAnswer);
@@ -51,17 +51,18 @@ public class MathForKids {
                 // Student's answer was incorrect
                 System.out.printf("Incorrect. Correct result is %d and maximum duration is %ds\n", expectedAnswer, maxAllowedTimeInSeconds);
             }
-            successfulExercisesCount++;
+            totalAttemptedExercisesCount++;
+            totalTimeInSeconds += duration;
         } catch (Exception e) {
             System.out.println("This is not number");
         } while (successfulExercisesCount < expectedCalculatedExercises);
 
         System.out.printf(
                 """
-                        Congratulations.
-                        You did successful %d math exercises under %d seconds from %d total.
-                        Your total time was %d seconds and
-                        Your success ratio was %.2f%%.
+                Congratulations.
+                You did successful %d math exercises under %d seconds from %d total.
+                Your total time was %d seconds and
+                Your success ratio was %.2f%%.
                 """,
                 successfulExercisesCount,
                 maxAllowedTimeInSeconds,
