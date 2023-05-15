@@ -15,6 +15,7 @@ public class MathForKids {
         boolean isAddition;
         int successInputs = 0;
         int totalInputs = 0;
+        int totalSeconds = 0;
 
         do try {
             /*
@@ -40,7 +41,6 @@ public class MathForKids {
             long duration = TimeUnit.SECONDS.convert(System.nanoTime() - start, TimeUnit.NANOSECONDS);
             if (result == sum && duration <= maxAllowedTimeInSeconds) {
                 System.out.printf("This is OK. The real sum is %d\n", sum);
-                successInputs++;
             } else if (result != sum && duration <= maxAllowedTimeInSeconds) {
                 // Student's answer was right and in max allowed time
                 System.out.printf("You're fast. But you have incorrect result. Correct result is %d\n", sum);
@@ -51,14 +51,22 @@ public class MathForKids {
                 // Student's answer was incorrect
                 System.out.printf("Incorrect. Correct result is %d and maximum duration is %ds\n", sum, maxAllowedTimeInSeconds);
             }
+            successInputs++;
         } catch (Exception e) {
             System.out.println("This is not number");
         } while (successInputs < expectedCalculatedExercises);
 
         System.out.printf(
-                "Congratulations. You did successful %d math exercises from %d total. Your success ratio is: %.2f%%",
+                """
+                        Congratulations.
+                        You did successful %d math exercises under %d seconds from %d total.
+                        Your total time was %d seconds and
+                        Your success ratio was %.2f%%.
+                """,
                 successInputs,
+                maxAllowedTimeInSeconds,
                 totalInputs,
+                totalSeconds,
                 ((double) successInputs / totalInputs) * 100);
     }
 
