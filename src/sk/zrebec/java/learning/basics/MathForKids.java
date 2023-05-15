@@ -1,3 +1,5 @@
+package sk.zrebec.java.learning.basics;
+
 import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
